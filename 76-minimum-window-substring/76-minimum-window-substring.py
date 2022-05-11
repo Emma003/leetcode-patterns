@@ -1,5 +1,9 @@
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
+        # return empty string if |pattern| > |str|
+        if len(t) > len(s):
+            return ""
+        
         # loading all chars into a dict
         dict = {}
         for c in t:
