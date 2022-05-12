@@ -13,11 +13,12 @@ class Solution:
 
 
         window_start, curr_word, min_word, matches, found = 0, "", s, 0, False
-        #s.replace('a', '')
 
         # iterating through chars of string
         for window_end in range(len(s)):
             right = s[window_end]
+            
+            # decrement chars from dict, increment number of matches if 
             curr_word += right
             if right in dict:
               dict[right] -= 1
