@@ -1,6 +1,6 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        start, curr_profit, max_profit = 0, 0, 0
+        start, max_profit = 0, 0
         
         for end in range(1, len(prices)):
             right = prices[end]
