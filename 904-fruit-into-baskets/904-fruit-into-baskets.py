@@ -1,31 +1,21 @@
 class Solution:
     def totalFruit(self, fruits: List[int]) -> int:
-        # declaring some variables
         baskets = {}
-        window_start, max_fruits = 0, -math.inf
+        start, max_fruits = 0, -1
 
-        # going through the row of trees
-        for window_end in range(len(fruits)):
-          right_fruit = fruits[window_end]
+        for end in range(len(fruits)):
+            r = fruits[end]
+            if r not in baskets:
+                baskets[r] = 0
+            baskets[r] += 1
 
-          # adding the new fruit to the baskets if not already there
-          if right_fruit not in baskets:
-            baskets[right_fruit] = 0
-          baskets[right_fruit] += 1
+            while len(baskets) > 2:
+                l = fruits[start]
+                baskets[l] -= 1
+                if baskets[l] == 0:
+                    del baskets[l]
+                start +=1
 
-          # shrink basket until it fulfills condition (only two fruit types)
-          while len(baskets) > 2:
-            left_fruit = fruits[window_start]
-
-            # remove the fruit from the basket
-            baskets[left_fruit] -= 1
-            if baskets[left_fruit] == 0:
-              baskets.pop(left_fruit)
-
-            # move window forward
-            window_start += 1
-
-          # update max number of fruits
-          max_fruits = max(max_fruits, window_end + 1 - window_start)
-
+            max_fruits = max(max_fruits, end-start+1)
         return max_fruits
+
