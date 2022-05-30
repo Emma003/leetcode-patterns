@@ -9,8 +9,7 @@ class Solution:
         if root == None:
             return []
         
-        stack = deque()
-        res, q = [], deque()
+        res, q = deque(), deque()
         q.append(root)
 
         while q:
@@ -23,10 +22,7 @@ class Solution:
                     q.append(curr.right)
                 level.append(curr.val)
 
-            stack.append(level)
-
-        for _ in range(len(stack)):
-            res.append(stack.pop())
+            res.appendleft(level)
 
         return res
         
