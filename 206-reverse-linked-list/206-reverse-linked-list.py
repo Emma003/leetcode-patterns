@@ -17,12 +17,11 @@ class Solution:
             
         
         newHead = stack[-1]
+        current = stack.pop()
         while stack:
-            current = stack.pop() 
-            if not stack:
-                current.next = None
-                break
             current.next = stack[-1]
+            current = stack.pop() 
             
+        current.next = None
         return newHead
             
