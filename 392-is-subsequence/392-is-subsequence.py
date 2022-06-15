@@ -1,12 +1,8 @@
 class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
-        # if both strings are empty
-        if len(s) == 0 and len(t) == 0:
+        if len(s) == 0: 
             return True
-        # if one string is empty while he other isn't
-        elif len(s) == 0:
-            return True
-        elif len(t) == 0:
+        if len(t) == 0:
             return False
         
         
