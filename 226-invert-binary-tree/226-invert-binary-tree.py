@@ -8,36 +8,16 @@ class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if not root:
             return None
-        
-        #init queue
-        q = deque()
-        q.append(root)
-        
-        #bfs
-        while q:
-            l = len(q)
-            
-            for i in range(l):
-                curr = q.popleft()
                 
-                #swapping nodes
-                tmpNode = curr.left
-                curr.left = curr.right
-                curr.right = tmpNode
-                
-                
-                if curr.left:
-                    q.append(curr.left)
-                if curr.right:
-                    q.append(curr.right)
+        #swapping nodes
+        tmpNode = root.left
+        root.left = root.right
+        root.right = tmpNode
+
+        self.invertTree(root.left)
+        self.invertTree(root.right)
                 
         return root
-                
-    # q = [4]
-    # curr_level = [4]
-    # depth = 1
-    # l = 1
-    # i = 0
-    #curr.val = 4
+
     
     
