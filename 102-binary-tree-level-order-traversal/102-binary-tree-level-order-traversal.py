@@ -14,17 +14,20 @@ class Solution:
         res = []
         
         while q:
-            curr_level = []
             l = len(q)
+            curr_level = []
             
             for i in range(l):
                 curr = q.popleft()
                 curr_level.append(curr.val)
+                
                 if curr.left:
                     q.append(curr.left)
+                    
                 if curr.right:
                     q.append(curr.right)
+                    
+            res.append(curr_level)
             
-            res.append(list(curr_level))
-        
         return res
+                
