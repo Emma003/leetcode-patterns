@@ -7,17 +7,13 @@
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         
-        
-        #inorder traversal [l -> curr -> r]
-        def inorder(root, left, right):
+        def bst(root, lo, hi):
             if not root:
                 return True
             
-            if not root.val > left or not root.val < right:
+            if root.val >= hi or root.val <= lo:
                 return False
             
-            return inorder(root.left, left, root.val) and inorder(root.right, root.val, right)
-
+            return bst(root.left, lo, root.val) and bst(root.right, root.val, hi)
         
-        return inorder(root, -math.inf, math.inf)
-        
+        return bst(root, -math.inf, math.inf)
