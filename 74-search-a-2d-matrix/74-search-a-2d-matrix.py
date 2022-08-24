@@ -19,7 +19,7 @@ class Solution:
             return False
         
         #doing binary search on the row found(O(log(N)))
-        row = (top + bot) // 2
+        # row = (top + bot) // 2
         l, r = 0, COLS-1
         arrOfInterest = matrix[row]
         
