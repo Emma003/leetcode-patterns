@@ -1,17 +1,20 @@
-def binSearch(arr, l, r, t):
+def binsearch(arr, l, r, t):
     if l>r:
         return -1
-    
-    middle = (l+r)//2
-    
-    if arr[middle] == t:
-        return middle
-    
-    if arr[middle] > t:
-        return binSearch(arr, l, middle-1, t)
+
+    mid = (l+r) // 2
+
+    if arr[mid] == t:
+        return mid
+
+    if arr[mid] > t:
+        return binsearch(arr, l, mid-1, t)
+
     else:
-        return binSearch(arr, middle+1, r, t)
+        return binsearch(arr, mid+1, r, t)
+
 
 class Solution:
-    def search(self, nums: List[int], target: int) -> int:
-        return binSearch(nums, 0, len(nums)-1, target)
+    def search(self, nums: List[int], target: int) -> int:    
+        return binsearch(nums, 0, len(nums)-1, target)
+    
