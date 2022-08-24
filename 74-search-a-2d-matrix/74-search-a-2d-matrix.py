@@ -1,22 +1,67 @@
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-        totalArr = []
+        ROWS, COLS = len(matrix), len(matrix[0])
         
-        for arr in matrix:
-            totalArr += arr
+        #binary search on rows (O(logM))
+        top, bot = 0, ROWS-1
+        while (top <= bot):
+            row = (top + bot) // 2
             
+            if target < matrix[row][0]:
+                bot = row - 1
+            elif target > matrix[row][-1]:
+                top = row + 1
+            else:
+                break
         
-        def binsearch(arr, l, r, t):
-            if l>r:
-                return False
-            
-            mid = (l+r) // 2
-            
-            if arr[mid] == t:
+        #checking if the number wasnt found at all (failed while loop condition):
+        if (top > bot):
+            return False
+        
+        #doing binary search on the row found(O(log(N)))
+        row = (top + bot) // 2
+        l, r = 0, COLS-1
+        arrOfInterest = matrix[row]
+        
+        while(l <= r):
+            m = (l+r) // 2
+            if target > arrOfInterest[m]:
+                l = m+1
+            elif target < arrOfInterest[m]:
+                r = m-1
+            else:
                 return True
-            if arr[mid] > t:
-                return binsearch(arr,l,mid-1,t)
-            if arr[mid] < t:
-                return binsearch(arr, mid+1, r, t)
-            
-        return binsearch(totalArr, 0, len(totalArr)-1, target)
+        
+        return False
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        
+        
