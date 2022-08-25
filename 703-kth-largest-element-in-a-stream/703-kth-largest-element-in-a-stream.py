@@ -1,26 +1,24 @@
-# EDGE CASES: k < nums or k > nums
+
 
 class KthLargest:
 
-    def __init__(self, k: int, nums: List[int]): #O(NlogN)
-        #keep a min heap of size k
-        self.minHeap, self.k = nums, k
+    def __init__(self, k: int, nums: List[int]):
+        #make min heap
+        self.heap = nums
+        heapq.heapify(self.heap)
+        self.k = k
         
-        heapq.heapify(self.minHeap) #n
-        
-        while len(self.minHeap) > k:
-            heapq.heappop(self.minHeap) #logn
-        
+        #maintain the min heap size to k by removing the msmallest until its only the k largest elements left in the heap
+        while len(self.heap) > self.k:
+            heapq.heappop(self.heap)
 
     def add(self, val: int) -> int:
-        heapq.heappush(self.minHeap,val) #logn * number of function calls
+        heapq.heappush(self.heap, val)
         
-        #only pop IF the minHeap is of size greater than k!!!
-        while len(self.minHeap) > self.k:
-            heapq.heappop(self.minHeap) #logn
-        
-        return self.minHeap[0]
-        
+        if len(self.heap) > self.k:
+            heapq.heappop(self.heap)
+            
+        return self.heap[0]
 
 
 # Your KthLargest object will be instantiated and called as such:
