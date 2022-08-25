@@ -21,6 +21,11 @@ class KthLargest:
         return self.heap[0]
 
 
-# Your KthLargest object will be instantiated and called as such:
-# obj = KthLargest(k, nums)
-# param_1 = obj.add(val)
+#time :
+    # constructor (heapify + pop n-k times): O(N + Nlog(N)) = O(NlogN)
+    # add (push&pop in heap of size k max once * number of fct calls (M)): O(2*log(k)* M) = O(MlogK)
+    
+    # total: O(NlogN + Mlogk)
+    
+    
+#space: O(N) -- heap
