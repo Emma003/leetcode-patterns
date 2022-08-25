@@ -6,14 +6,13 @@ class Solution:
             return False
         
         
-        matches = 0
+        
         sPointer = 0
         for char in t:
             if char == s[sPointer]:
                 sPointer += 1
-                matches += 1
                 
-            if matches == len(s):
+            if sPointer == len(s):
                 return True
             
         
