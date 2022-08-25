@@ -2,47 +2,50 @@
 # class ListNode:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
-#         self.next = next
+#         self.next = next\
 
 def reverse(head):
-    prv, curr, nxt = None, head, None
+    prev, curr = None, head
+
     while curr:
         nxt = curr.next
-        curr.next = prv
-        prv = curr
+        curr.next = prev
+        prev = curr
         curr = nxt
-    return prv
 
-        
-    
+    return prev
+
 class Solution:
     def reorderList(self, head: Optional[ListNode]) -> None:
-        """
-        Do not return anything, modify head in-place instead.
-        """
-        if head == None or head.next== None:
-            return
+        if not head or not head.next:
+            return head
+        
         
         slow, fast = head, head
         while fast and fast.next:
-            fast = fast.next.next
             slow = slow.next
-        tail = reverse(slow)
-        
-        p1 = head
-        p2 = tail
-        while p1 and p2:
-            tmp = p1.next
-            p1.next = p2 
-            p1 = tmp
+            fast = fast.next.next
             
-            tmp = p2.next
-            p2.next = p1
-            p2 = tmp
+    
+        p1 = head
+        p2 = reverse(slow)
         
+        
+        while p1 and p2:
+            tmp1 = p1.next
+            tmp2 = p2.next
+            
+            p1.next = p2
+            p2.next = tmp1
+            
+            p1 = tmp1
+            p2 = tmp2
+            
+        #break link btw end of first half and second
         if p1:
             p1.next = None
             
         
         
+            
         
