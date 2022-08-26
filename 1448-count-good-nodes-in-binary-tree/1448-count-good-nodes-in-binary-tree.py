@@ -6,19 +6,24 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        self.count = 0
+        count = [0]
+        count[0] = 0
         
-        def dfs(root, maxParent):
+        def dfs(root, maxSoFar):
+            
             if not root:
-                return 
+                return
             
-            if root.val >= maxParent:
-                self.count += 1
-                
-            dfs(root.left, max(maxParent, root.val))
-            dfs(root.right, max(maxParent, root.val))
+            #good node
+            if root.val >= maxSoFar:
+                count[0] += 1
             
-        
+            #update maxSoFar
+            maxSoFar = max(maxSoFar, root.val)
+            
+            #send to children
+            dfs(root.left, maxSoFar)
+            dfs(root.right, maxSoFar)
+            
         dfs(root, -math.inf)
-        return self.count
-            
+        return count[0]
