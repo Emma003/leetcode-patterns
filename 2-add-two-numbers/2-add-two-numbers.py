@@ -20,12 +20,12 @@ class Solution:
         #add them 
         totalNum = num1 + num2
         
+        if totalNum == 0:
+            return ListNode(0)
+        
         #convert the result to a linked list
         #dummy front node
-        lastDigit = totalNum % 10
-        totalNum //= 10
-        
-        resHead = ListNode(lastDigit)
+        resHead = ListNode(-1)
         p = resHead
         
         while totalNum > 0:
@@ -34,6 +34,6 @@ class Solution:
             p.next = ListNode(lastDigit)
             p = p.next
             
-        return resHead
+        return resHead.next
         
         
