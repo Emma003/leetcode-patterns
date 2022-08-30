@@ -2,63 +2,81 @@ class Node:
     def __init__(self, key=0, val=0, prev=None, next=None):
         self.key = key
         self.val = val
-        self.next = next
         self.prev = prev
+        self.next = next
 
 
 class LRUCache:
 
     def __init__(self, capacity: int):
-        self.capacity = capacity
+        self.cap = capacity
+        
+        #maps key to linked list nodes
         self.cache = {}
         
-        self.front = self.back = Node()
-        self.front.next, self.back.prev = self.back, self.front
-        
-        
-    
+        #doubly linked list: front = mru, back = lru 
+        self.front = self.back = Node(0)
+        self.front.next, self.back.prev = self.back,self.front
+
     def get(self, key: int) -> int:
+        #retrieve value
         if key in self.cache:
             res = self.cache[key]
+            
+            #update mru
             self.remove(res)
             self.addFront(res)
+            
+            #return result
             return res.val
         
         else:
             return -1
-    
+            
+
     def put(self, key: int, value: int) -> None:
+        #if key exists
         if key in self.cache:
             res = self.cache[key]
+            
+            #remove from cache
             self.remove(res)
+            
+            #update value
             res.val = value
+            
+            #add back to front of cache
             self.addFront(res)
-        else:
+        
+        
+        #if key doesnt exist
+        else: 
+            #add k-v pair
+            self.cache[key] = Node(key, value)
             
-            newNode = Node(key,value)
-            self.cache[key] = newNode
-            self.addFront(newNode)
+            #add to front of cache
+            self.addFront(self.cache[key])
             
+        #if len(cache) > capacity
+        if len(self.cache) > self.cap:
             
-        #remove lru
-        if len(self.cache) > self.capacity:
+            #retrieve the LRU node
             lru = self.back.prev
-            lru.prev.next = self.back
-            lru.next.prev = lru.prev
             
+            #remove it from list
+            self.remove(lru)
+            
+            #delete from cache
             del self.cache[lru.key]
-            
-    
-    #helper functions
+        
+    def addFront(self,node):
+        node.next, node.prev = self.front.next, self.front
+        self.front.next = node
+        node.next.prev = node
+        
     def remove(self,node):
         node.prev.next = node.next
         node.next.prev = node.prev
-        
-    def addFront(self,node):
-        node.next = self.front.next
-        node.prev = self.front
-        self.front.next = node
-        node.next.prev = node
 
 # Your LRUCache object will be instantiated and called as such:
 # obj = LRUCache(capacity)
