@@ -4,45 +4,36 @@
 #         self.val = val
 #         self.next = next
 
-def getNum(head):
-    num = 0
-    dec_pos = 1 #decimal position
+def readNumber(head, radix):
+    if not head:
+        return 0
     
-    curr = head
-    while curr:
-        n = curr.val
-        num += n*dec_pos
-        curr = curr.next
-        dec_pos *= 10 #shift decimal position every iteration (1 -> 10 -> 100)
-    return num
-    
+    return head.val*radix + readNumber(head.next, radix*10)
+
+
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        #read the numbers from the list
+        num1 = readNumber(l1, 1)
+        num2 = readNumber(l2, 1)
+            
+        #add them 
+        totalNum = num1 + num2
         
-        n1 = getNum(l1) 
-        n2 = getNum(l2)
-        sum = n1 + n2
+        #convert the result to a linked list
+        #dummy front node
+        lastDigit = totalNum % 10
+        totalNum //= 10
         
-        if sum == 0:
-            return ListNode(0)
+        resHead = ListNode(lastDigit)
+        p = resHead
         
-        # make new linked list
-        head = ListNode(-1) #dummy node
-        curr = head
-        while sum > 0:
-            last_digit = sum % 10
-            curr.next = ListNode(last_digit)
-            curr = curr.next
-            sum //= 10
+        while totalNum > 0:
+            lastDigit = totalNum % 10
+            totalNum //= 10
+            p.next = ListNode(lastDigit)
+            p = p.next
             
-        return head.next
-            
-            
-            
-            
-            
-            
-        
-        
+        return resHead
         
         
