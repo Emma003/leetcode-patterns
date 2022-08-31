@@ -1,27 +1,18 @@
-# "))"
-# "(("
-
-
 class Solution:
     def isValid(self, s: str) -> bool:
-        parentheses_map = {']':'[', '}':'{', ')':'('}
+        hashmap = {']':'[', '}':'{', ')':'('}
         stack = []
         
-        for char in s:
-            #closing brackets
-            if char in parentheses_map:
-                if stack and parentheses_map[char] == stack[-1]:
+        for c in s:
+            if c in hashmap:
+                if stack and hashmap[c] == stack[-1]:
                     stack.pop()
                 else:
                     return False
-            
-            #opening brackets
             else:
-                stack.append(char)
+                stack.append(c)
                 
         if stack:
             return False
         return True
-                
-        
         
