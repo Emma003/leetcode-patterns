@@ -1,47 +1,34 @@
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
+        rows = {}
+        cols = {}
+        grids = {}
         
-        #check rows
-        for i in range(len(board)):
-            lot = set()
-            for j in range(len(board)):
-                    cell = board[i][j]
-                    if cell.isdigit():
-                        if cell in lot:
-                            return False
-                        lot.add(cell)
-            
-            
-        #check cols
-        for i in range(len(board)):
-            lot = set()
-            for j in range(len(board)):
-                cell = board[j][i]
-                if cell.isdigit():
-                    if cell in lot:
-                        return False
-                    lot.add(cell)
+        for r in range(len(board)):
+            for c in range(len(board)):
+                cell = board[r][c]
                 
+                #empty cell
+                if not cell.isdigit():
+                    continue
+                    
+                #create sets as values to the map keys
+                if r not in rows:
+                    rows[r] = set()
+                    
+                if c not in cols:
+                    cols[c] = set()
+                    
+                if (r//3, c//3) not in grids:
+                    grids[(r//3, c//3)] = set()
+                    
+                
+                #check its in there
+                if cell in rows[r] or cell in cols[c] or cell in grids[(r//3, c//3)]:
+                    return False
+                
+                rows[r].add(cell)
+                cols[c].add(cell)
+                grids[(r//3, c//3)].add(cell)
         
-        #check 3x3 grids
-        gridMap = {}
-        
-        for i in range(len(board)):
-            for j in range(len(board)):
-                if board[i][j].isdigit():
-                    gridRow = i//3
-                    gridCol = j//3
-
-                    gridKey = str(gridRow) + "," + str(gridCol)
-                    if gridKey not in gridMap:
-                        gridMap[gridKey] = set()
-
-                    gridSet = gridMap[gridKey]
-                    if board[i][j] in gridSet:
-                        return False
-                    gridSet.add(board[i][j])
-                
-                
         return True
-                
-                
