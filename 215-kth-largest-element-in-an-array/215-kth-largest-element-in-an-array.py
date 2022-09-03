@@ -23,18 +23,14 @@ def partition (arr, l, r):
     for i in range(l,r):
         #if curr < pivot, shift to less group
         if arr[i] <= arr[r]:
-            swap(arr, p, i)
+            arr[p], arr[i] = arr[i], arr[p]
             p += 1
             
     #swap tail of less group (p) with pivot
-    swap(arr, p, r)
+    arr[p], arr[r] = arr[r], arr[p]
 
     return p
 
-def swap(arr, i1, i2):
-    tmp = arr[i1]
-    arr[i1] = arr[i2]
-    arr[i2] = tmp
 
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
