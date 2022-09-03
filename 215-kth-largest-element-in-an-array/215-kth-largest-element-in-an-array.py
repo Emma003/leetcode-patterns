@@ -34,6 +34,21 @@ def partition (arr, l, r):
 
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        return quickSelect(nums, 0, len(nums)-1, k)
+        targetIndex = len(nums) - k
+        l, r = 0, len(nums)-1
+        
+        while l <= r:
+            pivot = partition(nums, l, r)
+
+            if pivot < targetIndex:
+                l = pivot + 1
+            elif pivot > targetIndex:
+                r = pivot - 1
+            else:
+                return nums[targetIndex]
+      
+        
+        
+        # return quickSelect(nums, 0, len(nums)-1, k)
         
         
