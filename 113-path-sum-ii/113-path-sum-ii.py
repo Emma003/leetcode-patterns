@@ -5,22 +5,31 @@
 #         self.left = left
 #         self.right = right
 
-def has_path(root, sum, path, paths):
-    if not root:
-        return 
+#currPath [5,]
 
-    path.append(root.val)
+#allPath []
 
-    if not root.left and not root.right and sum == root.val:
-        paths.append(list(path))
-    else: 
-        has_path(root.left, sum-root.val, path, paths)
-        has_path(root.right, sum-root.val, path, paths)
-
-    del path[-1]
+#currSum = 0
 
 class Solution:
-    def pathSum(self, root: Optional[TreeNode], k: int) -> List[List[int]]:
-        paths = []
-        has_path(root, k, [], paths)
-        return paths
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
+        allPaths = []
+        
+        def dfs(root, currSum, currPath, allPaths):
+            if not root:
+                return 
+            
+            currPath.append(root.val)
+            
+            if not root.left and not root.right and root.val+currSum == targetSum:
+                allPaths.append(list(currPath))
+            
+                
+            dfs(root.left, currSum+root.val, currPath, allPaths)
+            dfs(root.right, currSum+root.val, currPath, allPaths)
+            
+            del currPath[-1]
+            
+        dfs(root, 0, [], allPaths)
+    
+        return allPaths
