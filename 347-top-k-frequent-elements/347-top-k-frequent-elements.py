@@ -14,7 +14,7 @@ class Solution:
             freq[frequency].append(num)
             
         res = []
-        for i in range(len(freq)-1, 0, -1):
+        for i in range(len(freq)-1, -1, -1):
             curr = freq[i]
             
             for n in curr:
@@ -22,10 +22,3 @@ class Solution:
                 if len(res) == k:
                     return res
 
-
-#         res = []
-#         for i in range(len(freq) - 1, 0, -1):
-#             for n in freq[i]:
-#                 res.append(n)
-#                 if len(res) == k:
-#                     return res
