@@ -6,29 +6,38 @@ class Node:
         self.neighbors = neighbors if neighbors is not None else []
 """
 
+# {1:1, 2:2, 3:3, 4:4}
+#
+#
+#
+    
+    
+
 class Solution:
     def cloneGraph(self, node: 'Node') -> 'Node':
-        #empty graph
         if not node:
             return None
         
+        #dict: old node -> new node
         oldToNew = {}
         
-        def clone(node):
-            #if already visited, return the copy of the node
+        
+        def dfs(node):
+            #node in dict
             if node in oldToNew:
                 return oldToNew[node]
+
+            #else
+            newNode = Node(node.val)
+            oldToNew[node] = newNode
+
+            #iterate over the node's neighbors
+            for n in node.neighbors:
+                newNode.neighbors.append(dfs(n))
             
-            #create copy of the node and add to dict
-            copy = Node(node.val)
-            oldToNew[node] = copy
-            
-            #iterate over node's neighbors and add their clones to copy's neighbors
-            for neighbor in node.neighbors:
-                copy.neighbors.append(clone(neighbor))
-            
-            return copy
-            
-        return clone(node)
+            return newNode
         
+        #create a node, map the old node to the new node (same value, NOT SAME NEIGHBOURS)
+        return dfs(node)
         
+       
