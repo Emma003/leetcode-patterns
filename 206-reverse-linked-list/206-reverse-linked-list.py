@@ -3,16 +3,20 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+
+def reverse(head, prev):
+    if not head.next:
+        head.next = prev
+        return head
+    
+    newHead = reverse(head.next, head)
+    head.next = prev
+    return newHead
+
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        curr, prev, nxt = head, None, None
+        if not head or not head.next:
+            return head
         
-        while curr:
-            nxt = curr.next
-            curr.next = prev
-            prev = curr
-            curr = nxt
-            
-        
-        return prev
+        return reverse(head, None)
     
