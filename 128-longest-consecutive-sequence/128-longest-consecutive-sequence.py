@@ -4,7 +4,7 @@ class Solution:
         map = set(nums)
         maxLength = 0
         
-        for n in map:
+        for n in nums:
             currSeq = 1
             
             #check for beginning of conseq sequence
