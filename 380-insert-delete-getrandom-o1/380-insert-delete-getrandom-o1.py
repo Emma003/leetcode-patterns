@@ -42,9 +42,9 @@ class RandomizedSet:
         return False
     
     def getRandom(self) -> int:
-        randIndex = randint(0, len(self.keys) -1)
+        randIdx = random.randint(0, len(self.keys) - 1)
+        return self.keys[randIdx]
         
-        return random.choice(self.keys)
 
 
 # Your RandomizedSet object will be instantiated and called as such:
