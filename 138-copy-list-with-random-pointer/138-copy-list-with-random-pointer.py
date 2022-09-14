@@ -12,35 +12,36 @@ class Solution:
         if not head:
             return None
         
+        oldToNew = {}
         
-        #first pass 
-        #mapping old node to new node
-        map = {}
+        #1st pass -> create new nodes
         p = head
         while p:
-            map[p] = Node(p.val)
+            cloneP = Node(p.val)
+            oldToNew[p] = cloneP
             p = p.next
-            
         
-        #second pass
-        #linking
+        
+        #2nd pass -> copy pointers
         p = head
         while p:
-            newNode = map[p]
+            #copy next
             
-            #populatinng next pointer
+            #check null pointer
             if p.next == None:
-                newNode.next = None
+                oldToNew[p].next = None
             else:
-                newNode.next = map[p.next]
-                
-            #population random pointer
+                oldToNew[p].next = oldToNew[p.next]
+            
+            #copy random
+            
+            #check null pointer
             if p.random == None:
-                newNode.random = None
+                oldToNew[p].random = None
             else:
-                newNode.random = map[p.random]
-            
+                oldToNew[p].random = oldToNew[p.random]
+                
             p = p.next
-            
-        return map[head]
-            
+                
+        return oldToNew[head]
+        
