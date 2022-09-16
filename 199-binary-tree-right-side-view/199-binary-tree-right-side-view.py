@@ -14,17 +14,15 @@ class Solution:
         result = []
         
         while q:
-            currLevel = []
             
             for i in range(len(q)):
                 curr = q.popleft()
-                currLevel.append(curr)
                 if curr.left:
                     q.append(curr.left)
                 if curr.right:
                     q.append(curr.right)
                     
-            result.append(currLevel[-1].val)
+            result.append(curr.val)
                           
                 
         return result
