@@ -8,17 +8,17 @@ class Solution:
     def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
         sortedArr = []
 
-        def inorder(root, sortedArr):
+        def inorder(root):
             if not root:
                 return
 
-            inorder(root.left, sortedArr)
+            inorder(root.left)
             sortedArr.append(root.val)
-            inorder(root.right, sortedArr)
+            inorder(root.right)
 
             
             
-        inorder(root, sortedArr)
+        inorder(root)
 
         left, right = 0, len(sortedArr)-1
 
