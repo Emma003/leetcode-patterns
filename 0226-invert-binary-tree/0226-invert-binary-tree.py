@@ -7,14 +7,26 @@
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         
-        def dfs(root):
+        def bfs(root):
             if not root:
                 return
-
-            root.left, root.right = root.right, root.left
-
-            dfs(root.left)
-            dfs(root.right)
             
-        dfs(root)
+            q = deque()
+            q.append(root)
+            
+            while q:
+                
+                l = len(q)
+                
+                for _ in range(l):
+                    
+                    curr = q.popleft()
+                    curr.left, curr.right = curr.right, curr.left
+                    
+                    if curr.left:
+                        q.append(curr.left)
+                    if curr.right:
+                        q.append(curr.right)
+            
+        bfs(root)
         return root
