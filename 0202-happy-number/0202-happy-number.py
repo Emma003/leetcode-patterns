@@ -13,14 +13,11 @@ class Solution:
         
         fast, slow = n, n
         
-        while fast != 1:
+        while True:
             fast = squareSum(squareSum(fast))
             slow = squareSum(slow)
             
-            if fast == 1:
+            if fast == slow:
                 break
             
-            if fast == slow:
-                return False
-            
-        return True
+        return fast == 1
