@@ -29,28 +29,26 @@ iterate over chars in t:
 
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        if not s and not t:
-            return True
-        if not s or not t:
+        if len(s) != len(t):
             return False
         
-        sDict = {}
+        sMap = {}
         
         for character in s:
-            if character not in sDict:
-                sDict[character] = 0
-            sDict[character] += 1
+            if character not in sMap:
+                sMap[character] = 0
+            sMap[character] += 1
             
-        
-        matches = 0
         for character in t:
-            if character not in sDict:
+            if character not in sMap:
                 return False
             
-            sDict[character] -= 1
-            if sDict[character] == 0:
-                matches += 1
+            sMap[character] -= 1
+            if sMap[character] == 0:
+                del sMap[character] 
                 
-        if matches == len(sDict):
-            return True
+        if len(sMap) != 0:
+            return False
+        return True
+        
         
