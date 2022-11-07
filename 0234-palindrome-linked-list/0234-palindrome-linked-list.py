@@ -45,7 +45,7 @@ class Solution:
             
             
         #undo reverse
-        reverse(tail)
+        # reverse(tail)
         if p1 == None or p2 == None:
             return True
         return False
